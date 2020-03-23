@@ -1,6 +1,6 @@
 # Amazon Product Search
 
-This project shows how is possible to search products at amazon.com using a scrapping technique.
+This project shows how is possible to search products at amazon.com using a scraping technique.
 To make this possible, I've used the `puppeteer` package to simulate a user browsing the website and then using the web API to query the correct selectors.
 The data is then saved to a document database that acts like a cache to following queries.
 
