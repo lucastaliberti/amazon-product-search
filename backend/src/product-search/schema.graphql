@@ -1,0 +1,15 @@
+
+type Product {
+    asin: String!
+    title: String!
+    rating: Float!
+    reviewCount: Int!
+    listPrice: String!
+    price: String!
+    availability: Int!
+    description: String
+}
+
+type Query {
+    product(asin: String!): Product
+}
