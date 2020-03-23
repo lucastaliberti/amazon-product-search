@@ -11,10 +11,9 @@ export interface Product {
     title: string;
     rating: number;
     reviewCount: number;
-    listPrice: string;
     price: string;
     availability: number;
-    description?: string;
+    dimensions: string;
 }
 
 export interface IQuery {

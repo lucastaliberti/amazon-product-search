@@ -1,9 +1,11 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from "@nestjs/mongoose";
+import {launch} from "puppeteer";
 import {Model} from 'mongoose';
 
 import {Product} from "./product.interface";
 import {CreateProductDTO} from "./create-product.dto";
+
 
 @Injectable()
 export class ProductSearchService {
@@ -14,8 +16,6 @@ export class ProductSearchService {
         const product = await this.productModel
             .findOne({asin: productASIN})
             .exec();
-
-        console.log(productASIN, product);
 
         if (product) {
             return product;
@@ -33,17 +33,50 @@ export class ProductSearchService {
     }
 
     private async scrapeProduct(productASIN: string): Promise<Product> {
-        return {
-            asin: productASIN,
-            title: 'Apple iPhone XR vollständig entsperrt (erneuert), schwarz',
-            rating: 4.5,
-            reviewCount: 509,
-            listPrice: '749,99 $',
-            price: '549,00 $',
-            availability: 5,
-            description:
-                'Dies ist ein Amazon-Renewed-Produkt'
+        try {
+            const browser = await launch({
+                headless: true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox', '--window-size=1920,1080', '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"']
+            });
 
-        };
+            const page = await browser.newPage();
+            await page.goto(`https://www.amazon.com/dp/${productASIN}`);
+            await page.waitForSelector('body');
+
+            const productInfo = await page.evaluate((productASIN) => {
+                // Get product title
+                const title = (document.body.querySelector('#productTitle') as HTMLElement).innerText;
+
+                // Get review count
+                const rawReviewCount = (document.body.querySelector('#acrCustomerReviewText') as HTMLElement).innerText;
+                const reviewCount = parseFloat(rawReviewCount.replace(/[^0-9]/g, '').trim());
+
+                // Get and format rating
+                const ratingElement = document.body.querySelector('.a-icon.a-icon-star').getAttribute('class');
+                const integerRating = ratingElement.replace(/[^0-9]/g, '').trim();
+                const rating = parseInt(integerRating) / 10;
+
+                // Get price
+                const price = (document.body.querySelector('#priceblock_ourprice') as HTMLElement).innerText;
+
+                // Get dimensions
+                const dimensions = (document.body.querySelector('.size-weight:nth-child(2) > .value') as HTMLElement).innerText
+                
+                return {
+                    asin: productASIN,
+                    title,
+                    rating,
+                    reviewCount,
+                    price,
+                    dimensions,
+                };
+            }, productASIN);
+
+            await browser.close();
+
+            return productInfo;
+        } catch (e) {
+            throw e;
+        }
     }
 }

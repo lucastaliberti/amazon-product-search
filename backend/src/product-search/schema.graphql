@@ -4,10 +4,9 @@ type Product {
     title: String!
     rating: Float!
     reviewCount: Int!
-    listPrice: String!
     price: String!
     availability: Int!
-    description: String
+    dimensions: String!
 }
 
 type Query {
