@@ -4,7 +4,7 @@ import styled from "styled-components";
 interface ProductResultsProps {
   readonly asin: string;
   readonly title: string;
-  readonly rating: number;
+  readonly rating: string;
   readonly reviewCount: number;
   readonly price: string;
   readonly dimensions: string;
@@ -23,34 +23,36 @@ export const ProductResults = ({
   return (
     <Box>
       <ProductTable>
-        <tr>
-          <TableLabel>ASIN:</TableLabel>
-          <TableValue>{asin}</TableValue>
-        </tr>
-        <tr>
-          <TableLabel>Title:</TableLabel>
-          <TableValue>{title}</TableValue>
-        </tr>
-        <tr>
-          <TableLabel>Category:</TableLabel>
-          <TableValue>{category}</TableValue>
-        </tr>
-        <tr>
-          <TableLabel>Rating:</TableLabel>
-          <TableValue>{rating}</TableValue>
-        </tr>
-        <tr>
-          <TableLabel>Review Count:</TableLabel>
-          <TableValue>{reviewCount}</TableValue>
-        </tr>
-        <tr>
-          <TableLabel>Price:</TableLabel>
-          <TableValue>{price}</TableValue>
-        </tr>
-        <tr>
-          <TableLabel>Dimensions:</TableLabel>
-          <TableValue>{dimensions}</TableValue>
-        </tr>
+        <tbody>
+          <tr>
+            <TableLabel>ASIN:</TableLabel>
+            <TableValue>{asin}</TableValue>
+          </tr>
+          <tr>
+            <TableLabel>Title:</TableLabel>
+            <TableValue>{title}</TableValue>
+          </tr>
+          <tr>
+            <TableLabel>Category:</TableLabel>
+            <TableValue>{category}</TableValue>
+          </tr>
+          <tr>
+            <TableLabel>Rating:</TableLabel>
+            <TableValue>{rating}</TableValue>
+          </tr>
+          <tr>
+            <TableLabel>Review Count:</TableLabel>
+            <TableValue>{reviewCount}</TableValue>
+          </tr>
+          <tr>
+            <TableLabel>Price:</TableLabel>
+            <TableValue>{price}</TableValue>
+          </tr>
+          <tr>
+            <TableLabel>Dimensions:</TableLabel>
+            <TableValue>{dimensions}</TableValue>
+          </tr>
+        </tbody>
       </ProductTable>
     </Box>
   );

@@ -17,6 +17,7 @@ import { ProductResults } from "./ProductResults";
 
 function App() {
   const [inputValue, setInputValue] = useState("");
+
   const [getProduct, { loading, data }] = useSearchProductByASINQuery();
 
   const handleGetProduct = (asin: string) =>

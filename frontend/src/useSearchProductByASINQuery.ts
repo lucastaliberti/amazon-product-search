@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
-const SEARCH_PRODUCT_BY_ASIN = gql`
+export const SEARCH_PRODUCT_BY_ASIN = gql`
   query searchProductByASIN($asin: String!) {
     product(asin: $asin) {
       asin

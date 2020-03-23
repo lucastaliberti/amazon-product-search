@@ -1,9 +1,10 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { render } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+it("renders with an image and title", async () => {
+  const { getByRole } = render(<App />);
+
+  expect(getByRole("heading")).toHaveTextContent("product search by ASIN:");
+  expect(getByRole("img")).toHaveAttribute("alt", "amazon-logo");
 });
