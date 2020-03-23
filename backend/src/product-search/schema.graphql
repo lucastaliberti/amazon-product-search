@@ -1,14 +1,13 @@
-
 type Product {
-    asin: String!
-    title: String!
-    rating: Float!
-    reviewCount: Int!
-    price: String!
-    availability: Int!
-    dimensions: String!
+  asin: String!
+  title: String!
+  rating: String!
+  reviewCount: Int!
+  price: String!
+  dimensions: String!
+  category: String!
 }
 
 type Query {
-    product(asin: String!): Product
+  product(asin: String!): Product
 }

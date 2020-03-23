@@ -9,11 +9,11 @@
 export interface Product {
     asin: string;
     title: string;
-    rating: number;
+    rating: string;
     reviewCount: number;
     price: string;
-    availability: number;
     dimensions: string;
+    category: string;
 }
 
 export interface IQuery {
